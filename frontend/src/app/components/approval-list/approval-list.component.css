@@ -1,0 +1,117 @@
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #1a1a1a;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+.subtitle {
+  margin: 0.25rem 0 0;
+  color: #666;
+}
+
+.toggle {
+  font-size: 0.85rem;
+  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.demo-panel {
+  background: #f6f7f9;
+  border: 1px solid #e2e4e8;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.demo-panel h2 {
+  font-size: 1rem;
+  margin: 0 0 0.75rem;
+}
+
+.demo-fields {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.demo-fields input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  flex: 1;
+  min-width: 180px;
+}
+
+.demo-fields input.wide {
+  flex: 2;
+}
+
+.demo-fields button {
+  padding: 0.5rem 1rem;
+  background: #1a1a1a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.requests-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.requests-table th,
+.requests-table td {
+  text-align: left;
+  padding: 0.6rem 0.5rem;
+  border-bottom: 1px solid #eee;
+  font-size: 0.9rem;
+}
+
+.masked {
+  font-family: monospace;
+}
+
+.badge {
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge.pending {
+  background: #fff3cd;
+  color: #8a6300;
+}
+
+.badge.approved {
+  background: #d4edda;
+  color: #155724;
+}
+
+.badge.rejected {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.empty {
+  color: #888;
+  text-align: center;
+  padding: 1.5rem 0;
+}

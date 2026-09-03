@@ -1,0 +1,37 @@
+<div class="page" *ngIf="request as r">
+  <a routerLink="/" class="back">&larr; Torna alla coda</a>
+
+  <h1>{{ r.title }}</h1>
+  <p class="meta">
+    Tipo automazione: <strong>{{ r.automationType }}</strong> ·
+    Stato: <span class="badge" [class]="r.status.toLowerCase()">{{ r.status }}</span>
+  </p>
+
+  <section class="block">
+    <h2>Dato sensibile coinvolto</h2>
+    <p class="masked">{{ r.sensitiveDataPreview }}</p>
+  </section>
+
+  <section class="block">
+    <h2>Azione proposta dall'AI</h2>
+    <pre class="proposed-action">{{ r.proposedAction }}</pre>
+  </section>
+
+  <section class="block" *ngIf="r.status === 'PENDING'">
+    <h2>Decisione</h2>
+    <textarea
+      [(ngModel)]="reviewerNote"
+      placeholder="Nota facoltativa (es. motivo del rifiuto, modifiche richieste)"
+    ></textarea>
+    <div class="actions">
+      <button class="approve" [disabled]="submitting" (click)="approve()">Approva ed esegui</button>
+      <button class="reject" [disabled]="submitting" (click)="reject()">Rifiuta</button>
+    </div>
+  </section>
+
+  <section class="block" *ngIf="r.status !== 'PENDING'">
+    <h2>Esito</h2>
+    <p>Decisa il {{ r.decidedAt | date: 'medium' }}</p>
+    <p *ngIf="r.reviewerNote">Nota: {{ r.reviewerNote }}</p>
+  </section>
+</div>
