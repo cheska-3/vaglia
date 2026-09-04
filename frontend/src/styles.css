@@ -1,8 +1,35 @@
-* {
+/* ── RESET & BASE ─────────────────────────────────────────── */
+*, *::before, *::after {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  margin: 0;
-  background: #fff;
+  font-family: 'Inter', sans-serif;
+  background: #0a0a12;
+  color: #f0f0f4;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ── SCROLLBAR ────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 7px; }
+::-webkit-scrollbar-track { background: #0a0a12; }
+::-webkit-scrollbar-thumb { background: #a855f7; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #9333ea; }

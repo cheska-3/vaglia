@@ -1,4 +1,4 @@
-# Approval Gateway
+# Vaglia — Approval Gateway
 
 Piattaforma di **human-in-the-loop approval** per automazioni AI che agiscono su dati sensibili (email, pagamenti, dati cliente). Un'automazione propone un'azione, un dato sensibile viene mascherato e mostrato in una dashboard, e l'azione viene eseguita solo dopo l'approvazione esplicita di una persona.
 

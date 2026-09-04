@@ -11,8 +11,8 @@
 	<groupId>com.approvalgateway</groupId>
 	<artifactId>backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ApprovalGateway</name>
-	<description/>
+	<name>Vaglia</name>
+	<description>Vaglia — human-in-the-loop approval gateway for AI automations</description>
 	<url/>
 	<licenses>
 		<license/>

@@ -1,1 +1,33 @@
-<router-outlet />
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="navbar-inner container">
+    <a class="brand" routerLink="/">
+      <span class="brand-mark">V</span>
+      <span class="brand-text">Vaglia</span>
+    </a>
+    <span class="navbar-tagline">AI Approval Gateway</span>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main>
+  <router-outlet></router-outlet>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="footer-mark">V</span>
+        <span class="footer-name">Vaglia</span>
+      </div>
+      <p class="footer-tagline">Revisione umana per le azioni AI su dati sensibili. Nessuna esecuzione senza approvazione.</p>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; {{ currentYear }} Vaglia.</span>
+      <span class="footer-tech">Spring Boot · Angular · Gemini</span>
+    </div>
+  </div>
+</footer>

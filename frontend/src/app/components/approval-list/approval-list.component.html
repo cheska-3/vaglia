@@ -1,50 +1,59 @@
-<div class="page">
-  <header class="page-header">
-    <div>
-      <h1>Approval Gateway</h1>
-      <p class="subtitle">Coda di revisione umana per azioni AI su dati sensibili</p>
+<!-- HERO -->
+<section class="list-hero">
+  <div class="container list-hero-inner">
+    <div class="list-hero-meta">
+      <span class="list-icon">🛡️</span>
+      <div>
+        <h1 class="list-title">Coda di approvazione</h1>
+        <p class="list-count">{{ requests.length }} richieste{{ showAll ? '' : ' in attesa' }}</p>
+      </div>
     </div>
     <label class="toggle">
       <input type="checkbox" [checked]="showAll" (change)="toggleShowAll()" />
       Mostra anche approvate/rifiutate
     </label>
-  </header>
+  </div>
+</section>
 
-  <section class="demo-panel">
-    <h2>Simula automazione demo — bozza email</h2>
-    <div class="demo-fields">
-      <input [(ngModel)]="simCustomerEmail" placeholder="Email cliente" />
-      <input [(ngModel)]="simCustomerMessage" placeholder="Messaggio cliente" class="wide" />
-      <button (click)="runDemoAutomation()">Genera richiesta di approvazione</button>
+<!-- DEMO PANEL -->
+<section class="demo-section">
+  <div class="container">
+    <div class="demo-panel">
+      <h2>Simula automazione demo — bozza email</h2>
+      <div class="demo-fields">
+        <input [(ngModel)]="simCustomerEmail" placeholder="Email cliente" />
+        <input [(ngModel)]="simCustomerMessage" placeholder="Messaggio cliente" class="wide" />
+        <button class="btn-primary" (click)="runDemoAutomation()">Genera richiesta</button>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section>
-    <p *ngIf="loading">Caricamento...</p>
-    <table *ngIf="!loading" class="requests-table">
-      <thead>
-        <tr>
-          <th>Tipo</th>
-          <th>Titolo</th>
-          <th>Dato sensibile</th>
-          <th>Stato</th>
-          <th>Creata</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let r of requests">
-          <td>{{ r.automationType }}</td>
-          <td>{{ r.title }}</td>
-          <td class="masked">{{ r.sensitiveDataPreview }}</td>
-          <td><span class="badge" [class]="r.status.toLowerCase()">{{ r.status }}</span></td>
-          <td>{{ r.createdAt | date: 'short' }}</td>
-          <td><a [routerLink]="['/approvals', r.id]">Rivedi</a></td>
-        </tr>
-        <tr *ngIf="requests.length === 0">
-          <td colspan="6" class="empty">Nessuna richiesta in coda.</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
-</div>
+<!-- LIST -->
+<section class="list-section">
+  <div class="container">
+    <div *ngIf="loading" class="state-loading">
+      <div class="spinner"></div>
+      <p>Caricamento...</p>
+    </div>
+
+    <div *ngIf="!loading" class="request-list">
+      <a *ngFor="let r of requests" class="request-card" [routerLink]="['/approvals', r.id]">
+        <div class="rc-main">
+          <span class="rc-type-badge">{{ r.automationType }}</span>
+          <h3 class="rc-title">{{ r.title }}</h3>
+          <span class="rc-masked">{{ r.sensitiveDataPreview }}</span>
+        </div>
+        <div class="rc-side">
+          <span class="badge" [class]="r.status.toLowerCase()">{{ r.status }}</span>
+          <span class="rc-date">{{ r.createdAt | date: 'short' }}</span>
+        </div>
+      </a>
+
+      <div *ngIf="requests.length === 0" class="state-empty">
+        <span class="empty-icon">📭</span>
+        <p>Nessuna richiesta in coda.</p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -23,7 +23,7 @@ public class AiDraftingService {
     @Value("${ai.gemini.api-key:}")
     private String apiKey;
 
-    @Value("${ai.gemini.model:gemini-2.0-flash}")
+    @Value("${ai.gemini.model:gemini-3.6-flash}")
     private String model;
 
     public String draftEmailReply(String customerMessage) {

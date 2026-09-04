@@ -1,37 +1,42 @@
-<div class="page" *ngIf="request as r">
-  <a routerLink="/" class="back">&larr; Torna alla coda</a>
+<section class="detail-hero" *ngIf="request as r">
+  <div class="container">
+    <a routerLink="/" class="back-btn"><span class="back-arrow">←</span> Torna alla coda</a>
+    <h1 class="detail-title">{{ r.title }}</h1>
+    <p class="detail-meta">
+      <span class="rc-type-badge">{{ r.automationType }}</span>
+      <span class="badge" [class]="r.status.toLowerCase()">{{ r.status }}</span>
+    </p>
+  </div>
+</section>
 
-  <h1>{{ r.title }}</h1>
-  <p class="meta">
-    Tipo automazione: <strong>{{ r.automationType }}</strong> ·
-    Stato: <span class="badge" [class]="r.status.toLowerCase()">{{ r.status }}</span>
-  </p>
-
-  <section class="block">
-    <h2>Dato sensibile coinvolto</h2>
-    <p class="masked">{{ r.sensitiveDataPreview }}</p>
-  </section>
-
-  <section class="block">
-    <h2>Azione proposta dall'AI</h2>
-    <pre class="proposed-action">{{ r.proposedAction }}</pre>
-  </section>
-
-  <section class="block" *ngIf="r.status === 'PENDING'">
-    <h2>Decisione</h2>
-    <textarea
-      [(ngModel)]="reviewerNote"
-      placeholder="Nota facoltativa (es. motivo del rifiuto, modifiche richieste)"
-    ></textarea>
-    <div class="actions">
-      <button class="approve" [disabled]="submitting" (click)="approve()">Approva ed esegui</button>
-      <button class="reject" [disabled]="submitting" (click)="reject()">Rifiuta</button>
+<section class="detail-section" *ngIf="request as r">
+  <div class="container">
+    <div class="block">
+      <h2>Dato sensibile coinvolto</h2>
+      <p class="masked">{{ r.sensitiveDataPreview }}</p>
     </div>
-  </section>
 
-  <section class="block" *ngIf="r.status !== 'PENDING'">
-    <h2>Esito</h2>
-    <p>Decisa il {{ r.decidedAt | date: 'medium' }}</p>
-    <p *ngIf="r.reviewerNote">Nota: {{ r.reviewerNote }}</p>
-  </section>
-</div>
+    <div class="block">
+      <h2>Azione proposta dall'AI</h2>
+      <pre class="proposed-action">{{ r.proposedAction }}</pre>
+    </div>
+
+    <div class="block" *ngIf="r.status === 'PENDING'">
+      <h2>Decisione</h2>
+      <textarea
+        [(ngModel)]="reviewerNote"
+        placeholder="Nota facoltativa (es. motivo del rifiuto, modifiche richieste)"
+      ></textarea>
+      <div class="actions">
+        <button class="btn-approve" [disabled]="submitting" (click)="approve()">Approva ed esegui</button>
+        <button class="btn-reject" [disabled]="submitting" (click)="reject()">Rifiuta</button>
+      </div>
+    </div>
+
+    <div class="block" *ngIf="r.status !== 'PENDING'">
+      <h2>Esito</h2>
+      <p class="outcome-line">Decisa il {{ r.decidedAt | date: 'medium' }}</p>
+      <p class="outcome-line" *ngIf="r.reviewerNote">Nota: {{ r.reviewerNote }}</p>
+    </div>
+  </div>
+</section>
