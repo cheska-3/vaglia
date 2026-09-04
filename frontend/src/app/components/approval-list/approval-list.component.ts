@@ -16,6 +16,8 @@ export class ApprovalListComponent implements OnInit {
   requests: ApprovalRequest[] = [];
   showAll = false;
   loading = false;
+  generating = false;
+  generateError = '';
 
   simCustomerEmail = 'giulia.bianchi@clienteesempio.it';
   simCustomerMessage = 'Salve, il pagamento della fattura 8832 risulta ancora in sospeso, potete verificare?';
@@ -44,8 +46,17 @@ export class ApprovalListComponent implements OnInit {
   }
 
   runDemoAutomation(): void {
-    this.approvalService
-      .simulateEmailDraft(this.simCustomerEmail, this.simCustomerMessage)
-      .subscribe(() => this.refresh());
+    this.generating = true;
+    this.generateError = '';
+    this.approvalService.simulateEmailDraft(this.simCustomerEmail, this.simCustomerMessage).subscribe({
+      next: () => {
+        this.generating = false;
+        this.refresh();
+      },
+      error: () => {
+        this.generating = false;
+        this.generateError = 'Generazione fallita. Riprova (se hai configurato GEMINI_API_KEY, potresti aver raggiunto il rate limit del tier gratuito).';
+      }
+    });
   }
 }

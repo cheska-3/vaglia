@@ -11,8 +11,8 @@ html {
 
 body {
   font-family: 'Inter', sans-serif;
-  background: #0a0a12;
-  color: #f0f0f4;
+  background: #0b0c0e;
+  color: #e5e7eb;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
@@ -30,6 +30,6 @@ a {
 
 /* ── SCROLLBAR ────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 7px; }
-::-webkit-scrollbar-track { background: #0a0a12; }
-::-webkit-scrollbar-thumb { background: #a855f7; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #9333ea; }
+::-webkit-scrollbar-track { background: #0b0c0e; }
+::-webkit-scrollbar-thumb { background: #22d3ee; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #0891b2; }

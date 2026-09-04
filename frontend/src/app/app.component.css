@@ -1,7 +1,7 @@
 /* ── NAVBAR ───────────────────────────────────────────────── */
 .navbar {
-  background: #080810;
-  border-bottom: 1px solid rgba(168,85,247,0.15);
+  background: #101114;
+  border-bottom: 1px solid rgba(148,163,184,0.14);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -22,31 +22,17 @@
   text-decoration: none;
 }
 
-.brand-mark {
-  width: 34px;
-  height: 34px;
-  background: #a855f7;
-  color: #fff;
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 800;
-  font-size: 1rem;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .brand-text {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 1.35rem;
   font-weight: 800;
-  color: #f0f0f4;
+  color: #e5e7eb;
   letter-spacing: -0.03em;
 }
 
 .navbar-tagline {
   font-size: 0.75rem;
-  color: rgba(240,240,244,0.3);
+  color: rgba(229,231,235,0.35);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   font-weight: 500;
@@ -55,13 +41,13 @@
 /* ── MAIN ─────────────────────────────────────────────────── */
 main {
   min-height: calc(100vh - 64px - 140px);
-  background: #0a0a12;
+  background: #0b0c0e;
 }
 
 /* ── FOOTER ───────────────────────────────────────────────── */
 .site-footer {
-  background: #080810;
-  border-top: 1px solid rgba(168,85,247,0.12);
+  background: #101114;
+  border-top: 1px solid rgba(148,163,184,0.12);
   padding: 40px 0 28px;
 }
 
@@ -84,37 +70,23 @@ main {
   gap: 10px;
 }
 
-.footer-mark {
-  width: 30px;
-  height: 30px;
-  background: #a855f7;
-  color: #fff;
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 800;
-  font-size: 0.9rem;
-  border-radius: 7px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .footer-name {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 1.2rem;
   font-weight: 800;
-  color: #f0f0f4;
+  color: #e5e7eb;
   letter-spacing: -0.02em;
 }
 
 .footer-tagline {
   font-size: 0.85rem;
-  color: rgba(240,240,244,0.4);
+  color: rgba(229,231,235,0.4);
   margin: 0;
 }
 
 .footer-divider {
   height: 1px;
-  background: rgba(168,85,247,0.1);
+  background: rgba(148,163,184,0.1);
 }
 
 .footer-bottom {
@@ -127,12 +99,12 @@ main {
 
 .footer-copy {
   font-size: 0.78rem;
-  color: rgba(240,240,244,0.3);
+  color: rgba(229,231,235,0.3);
 }
 
 .footer-tech {
   font-size: 0.72rem;
-  color: rgba(168,85,247,0.5);
+  color: rgba(34,211,238,0.6);
   letter-spacing: 0.06em;
   font-weight: 600;
 }

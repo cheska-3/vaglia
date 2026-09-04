@@ -2,7 +2,6 @@
 <section class="list-hero">
   <div class="container list-hero-inner">
     <div class="list-hero-meta">
-      <span class="list-icon">🛡️</span>
       <div>
         <h1 class="list-title">Coda di approvazione</h1>
         <p class="list-count">{{ requests.length }} richieste{{ showAll ? '' : ' in attesa' }}</p>
@@ -21,10 +20,14 @@
     <div class="demo-panel">
       <h2>Simula automazione demo — bozza email</h2>
       <div class="demo-fields">
-        <input [(ngModel)]="simCustomerEmail" placeholder="Email cliente" />
-        <input [(ngModel)]="simCustomerMessage" placeholder="Messaggio cliente" class="wide" />
-        <button class="btn-primary" (click)="runDemoAutomation()">Genera richiesta</button>
+        <input [(ngModel)]="simCustomerEmail" placeholder="Email cliente" [disabled]="generating" />
+        <input [(ngModel)]="simCustomerMessage" placeholder="Messaggio cliente" class="wide" [disabled]="generating" />
+        <button class="btn-primary" [disabled]="generating" (click)="runDemoAutomation()">
+          {{ generating ? 'Generazione in corso…' : 'Genera richiesta' }}
+        </button>
       </div>
+      <p class="demo-hint" *ngIf="generating">La bozza viene generata dal vero modello AI, può richiedere qualche secondo.</p>
+      <p class="demo-error" *ngIf="generateError">{{ generateError }}</p>
     </div>
   </div>
 </section>
@@ -51,7 +54,6 @@
       </a>
 
       <div *ngIf="requests.length === 0" class="state-empty">
-        <span class="empty-icon">📭</span>
         <p>Nessuna richiesta in coda.</p>
       </div>
     </div>
