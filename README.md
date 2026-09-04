@@ -11,12 +11,12 @@ Il caso d'uso: sempre più processi aziendali vengono automatizzati con l'AI, ma
 | Backend | Java 21, Spring Boot 4, Spring Data JPA |
 | Frontend | Angular 17 (standalone components) |
 | Database | H2 file-based di default (zero setup) — profilo MySQL pronto per produzione |
-| AI | Anthropic Claude API (con fallback a mock se non configurata) |
+| AI | Google Gemini API, tier gratuito (con fallback a mock se non configurata) |
 
 ## Come funziona
 
 1. Un'automazione (es. "bozza di risposta email a un cliente") invia i dati grezzi al backend
-2. Il backend genera una bozza dell'azione tramite l'API di Claude e **maschera il dato sensibile** (es. l'email del cliente) prima di salvarlo
+2. Il backend genera una bozza dell'azione tramite l'API di Gemini e **maschera il dato sensibile** (es. l'email del cliente) prima di salvarlo
 3. La richiesta finisce in coda con stato `PENDING`, visibile nella dashboard Angular
 4. Un revisore umano apre il dettaglio, vede il dato mascherato e la proposta dell'AI, e **approva o rifiuta**, con una nota facoltativa
 5. Solo dopo l'approvazione l'azione verrebbe effettivamente eseguita (in questo MVP il punto di esecuzione è isolato in un unico metodo — `ApprovalService.approve()` — pronto per essere collegato a un servizio email/pagamenti reale)
@@ -42,10 +42,13 @@ Apri `http://localhost:4200`.
 
 ### Abilitare la generazione AI reale
 
-Senza configurazione, le bozze sono generate da un mock chiaramente etichettato (`[MOCK — set ANTHROPIC_API_KEY...]`), utile per demo/CI senza credenziali. Per usare Claude davvero:
+Senza configurazione, le bozze sono generate da un mock chiaramente etichettato (`[MOCK — set GEMINI_API_KEY...]`), utile per demo/CI senza credenziali. Per usare Gemini davvero:
+
+1. Crea una API key gratuita su [aistudio.google.com/apikey](https://aistudio.google.com/apikey) (nessuna carta di credito richiesta, tier gratuito con rate limit)
+2. Impostala come variabile d'ambiente prima di avviare il backend:
 
 ```bash
-export ANTHROPIC_API_KEY=sk-ant-...   # Windows PowerShell: $env:ANTHROPIC_API_KEY="sk-ant-..."
+export GEMINI_API_KEY=AIza...   # Windows PowerShell: $env:GEMINI_API_KEY="AIza..."
 ```
 
 ### Passare a MySQL
@@ -59,7 +62,7 @@ Richiede un'istanza MySQL locale (vedi `application-mysql.properties` per la con
 ## Decisioni di design
 
 - **Mascheramento dei dati sensibili prima della persistenza**: il valore completo (es. l'email) viene usato solo in memoria per costruire il prompt AI; quello che finisce a database e in UI è già mascherato (`SensitiveDataMasker`).
-- **Fallback mock per l'AI**: se `ANTHROPIC_API_KEY` non è configurata, l'app resta comunque completamente funzionante e dimostrabile — scelta pensata per demo, colloqui tecnici e CI senza segreti.
+- **Fallback mock per l'AI**: se `GEMINI_API_KEY` non è configurata, l'app resta comunque completamente funzionante e dimostrabile — scelta pensata per demo, colloqui tecnici e CI senza segreti.
 - **H2 di default, MySQL come profilo**: stesso schema JPA, zero setup per chi clona il repo, ma pronto per un database reale in produzione.
 
 ## Roadmap (non ancora implementato)

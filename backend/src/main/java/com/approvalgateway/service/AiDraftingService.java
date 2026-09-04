@@ -10,24 +10,25 @@ import java.util.Map;
 /**
  * Generates the draft action an automation proposes, before a human reviews it.
  *
- * Calls the Anthropic Messages API when ANTHROPIC_API_KEY is set. Falls back to a
- * clearly-labelled mock draft otherwise, so the app is runnable/demoable with zero
- * external configuration (useful for CI, first clone, or a live interview walkthrough).
+ * Calls the Google Gemini API (free tier via Google AI Studio) when GEMINI_API_KEY
+ * is set. Falls back to a clearly-labelled mock draft otherwise, so the app is
+ * runnable/demoable with zero external configuration (useful for CI, first clone,
+ * or a live interview walkthrough).
  */
 @Service
 public class AiDraftingService {
 
-    private final RestClient restClient = RestClient.create("https://api.anthropic.com");
+    private final RestClient restClient = RestClient.create("https://generativelanguage.googleapis.com");
 
-    @Value("${ai.anthropic.api-key:}")
+    @Value("${ai.gemini.api-key:}")
     private String apiKey;
 
-    @Value("${ai.anthropic.model:claude-3-5-sonnet-20241022}")
+    @Value("${ai.gemini.model:gemini-2.0-flash}")
     private String model;
 
     public String draftEmailReply(String customerMessage) {
         if (apiKey == null || apiKey.isBlank()) {
-            return "[MOCK — set ANTHROPIC_API_KEY to generate a real draft]\n\n"
+            return "[MOCK — set GEMINI_API_KEY to generate a real draft]\n\n"
                     + "Gentile cliente,\n\ngrazie per averci scritto. Abbiamo ricevuto il suo messaggio:\n\""
                     + customerMessage + "\"\n\nLe risponderemo al più presto.\n\nCordiali saluti";
         }
@@ -42,29 +43,31 @@ public class AiDraftingService {
                 """.formatted(customerMessage);
 
         Map<String, Object> requestBody = Map.of(
-                "model", model,
-                "max_tokens", 1024,
-                "messages", List.of(Map.of("role", "user", "content", prompt))
+                "contents", List.of(Map.of("parts", List.of(Map.of("text", prompt))))
         );
 
-        ClaudeResponse response = restClient.post()
-                .uri("/v1/messages")
-                .header("x-api-key", apiKey)
-                .header("anthropic-version", "2023-06-01")
+        GeminiResponse response = restClient.post()
+                .uri("/v1beta/models/{model}:generateContent?key={key}", model, apiKey)
                 .header("content-type", "application/json")
                 .body(requestBody)
                 .retrieve()
-                .body(ClaudeResponse.class);
+                .body(GeminiResponse.class);
 
-        if (response == null || response.content() == null || response.content().isEmpty()) {
-            return "[AI draft unavailable — empty response from Anthropic API]";
+        if (response == null || response.candidates() == null || response.candidates().isEmpty()) {
+            return "[AI draft unavailable — empty response from Gemini API]";
         }
-        return response.content().get(0).text();
+        return response.candidates().get(0).content().parts().get(0).text();
     }
 
-    private record ClaudeResponse(List<ContentBlock> content) {
+    private record GeminiResponse(List<Candidate> candidates) {
     }
 
-    private record ContentBlock(String type, String text) {
+    private record Candidate(Content content) {
+    }
+
+    private record Content(List<Part> parts) {
+    }
+
+    private record Part(String text) {
     }
 }
