@@ -59,19 +59,42 @@ export GEMINI_API_KEY=AIza...   # Windows PowerShell: $env:GEMINI_API_KEY="AIza.
 
 Richiede un'istanza MySQL locale (vedi `application-mysql.properties` per la configurazione).
 
+### Con Docker Compose (backend + frontend, un solo comando)
+
+Richiede [Docker Desktop](https://www.docker.com/products/docker-desktop/) installato e avviato.
+
+```bash
+GEMINI_API_KEY=la-tua-chiave docker compose up --build   # Windows PowerShell: $env:GEMINI_API_KEY="..."; docker compose up --build
+```
+
+- Backend su `http://localhost:8080`, frontend su `http://localhost:4200`
+- `GEMINI_API_KEY` è opzionale: se non la imposti, l'app usa comunque il fallback mock
+- I dati H2 persistono tra i riavvii grazie al volume Docker `backend-data`
+
 ## Decisioni di design
 
 - **Mascheramento dei dati sensibili prima della persistenza**: il valore completo (es. l'email) viene usato solo in memoria per costruire il prompt AI; quello che finisce a database e in UI è già mascherato (`SensitiveDataMasker`).
 - **Fallback mock per l'AI**: se `GEMINI_API_KEY` non è configurata, l'app resta comunque completamente funzionante e dimostrabile — scelta pensata per demo, colloqui tecnici e CI senza segreti.
 - **H2 di default, MySQL come profilo**: stesso schema JPA, zero setup per chi clona il repo, ma pronto per un database reale in produzione.
 
+## Test
+
+```bash
+cd backend
+./mvnw test
+```
+
+Tre livelli di test, apposta per coprire tutta la piramide:
+- `SensitiveDataMaskerTest` — test unitario puro su una funzione senza dipendenze
+- `ApprovalServiceTest` — test unitario con i mock (Mockito) di repository e servizio AI, per isolare la logica di business
+- `ApprovalControllerTest` — "slice test" con `@WebMvcTest` + MockMvc, verifica solo il livello HTTP (rotte, codici di stato, JSON)
+
 ## Roadmap (non ancora implementato)
 
 - [ ] Autenticazione multi-utente (JWT)
 - [ ] Seconda automazione demo (es. conferma pagamento)
 - [ ] Storico/audit trail filtrabile
-- [ ] Test JUnit sul flusso di approvazione
-- [ ] Docker Compose (backend + frontend + MySQL)
+- [ ] Rate limiting sull'endpoint di generazione AI
 - [ ] CI con GitHub Actions
 - [ ] Notifica opzionale via Telegram con link diretto alla richiesta
 

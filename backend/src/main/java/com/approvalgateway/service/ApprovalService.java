@@ -17,9 +17,13 @@ public class ApprovalService {
 
     private final ApprovalRequestRepository repository;
     private final AiDraftingService aiDraftingService;
+    private final SimpleRateLimiter rateLimiter;
 
     /** Simulates an inbound automation event: an AI draft is generated and held for approval. */
     public ApprovalRequest simulateEmailDraftAutomation(String customerEmail, String customerMessage) {
+        if (!rateLimiter.tryAcquire()) {
+            throw new RateLimitExceededException("Troppe richieste di generazione AI, riprova tra poco.");
+        }
         String draft = aiDraftingService.draftEmailReply(customerMessage);
 
         ApprovalRequest request = ApprovalRequest.builder()

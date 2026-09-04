@@ -1,0 +1,23 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8080:8080"
+    environment:
+      # Read from the host's environment when you run `docker compose up`.
+      # If GEMINI_API_KEY isn't set on the host, this is just empty and the
+      # app falls back to its mock AI drafts, same as running it without Docker.
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+    volumes:
+      # Keeps the H2 database file across container restarts/rebuilds.
+      - backend-data:/app/data
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+
+volumes:
+  backend-data:
