@@ -17,20 +17,34 @@
   </div>
 </section>
 
-<!-- DEMO PANEL -->
+<!-- DEMO PANELS -->
 <section class="demo-section">
-  <div class="container">
+  <div class="container demo-grid">
     <div class="demo-panel">
-      <h2>Simula automazione demo — bozza email</h2>
+      <h2>Simula automazione — bozza email</h2>
       <div class="demo-fields">
-        <input [(ngModel)]="simCustomerEmail" placeholder="Email cliente" [disabled]="generating" />
-        <input [(ngModel)]="simCustomerMessage" placeholder="Messaggio cliente" class="wide" [disabled]="generating" />
-        <button class="btn-primary" [disabled]="generating" (click)="runDemoAutomation()">
-          {{ generating ? 'Generazione in corso…' : 'Genera richiesta' }}
+        <input [(ngModel)]="simCustomerEmail" placeholder="Email cliente" [disabled]="generatingEmail" />
+        <input [(ngModel)]="simCustomerMessage" placeholder="Messaggio cliente" class="wide" [disabled]="generatingEmail" />
+        <button class="btn-primary" [disabled]="generatingEmail" (click)="runEmailDemoAutomation()">
+          {{ generatingEmail ? 'Generazione in corso…' : 'Genera richiesta' }}
         </button>
       </div>
-      <p class="demo-hint" *ngIf="generating">La bozza viene generata dal vero modello AI, può richiedere qualche secondo.</p>
-      <p class="demo-error" *ngIf="generateError">{{ generateError }}</p>
+      <p class="demo-hint" *ngIf="generatingEmail">La bozza viene generata dal vero modello AI, può richiedere qualche secondo.</p>
+      <p class="demo-error" *ngIf="emailError">{{ emailError }}</p>
+    </div>
+
+    <div class="demo-panel">
+      <h2>Simula automazione — conferma pagamento</h2>
+      <div class="demo-fields">
+        <input [(ngModel)]="simPayeeIban" placeholder="IBAN beneficiario" [disabled]="generatingPayment" />
+        <input type="number" [(ngModel)]="simAmount" placeholder="Importo €" [disabled]="generatingPayment" />
+        <input [(ngModel)]="simReason" placeholder="Motivo" class="wide" [disabled]="generatingPayment" />
+        <button class="btn-primary" [disabled]="generatingPayment" (click)="runPaymentDemoAutomation()">
+          {{ generatingPayment ? 'Generazione in corso…' : 'Genera richiesta' }}
+        </button>
+      </div>
+      <p class="demo-hint" *ngIf="generatingPayment">La nota viene generata dal vero modello AI, può richiedere qualche secondo.</p>
+      <p class="demo-error" *ngIf="paymentError">{{ paymentError }}</p>
     </div>
   </div>
 </section>

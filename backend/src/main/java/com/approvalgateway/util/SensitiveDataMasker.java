@@ -24,4 +24,18 @@ public final class SensitiveDataMasker {
                 : domain.charAt(0) + "*".repeat(Math.max(1, domain.length() - 2)) + domain.charAt(domain.length() - 1);
         return maskedLocal + "@" + maskedDomain;
     }
+
+    /** Keeps the first 4 and last 4 characters of an IBAN, masks the rest. */
+    public static String maskIban(String iban) {
+        if (iban == null) {
+            return "***";
+        }
+        String compact = iban.replace(" ", "");
+        if (compact.length() <= 8) {
+            return "*".repeat(compact.length());
+        }
+        String start = compact.substring(0, 4);
+        String end = compact.substring(compact.length() - 4);
+        return start + "*".repeat(compact.length() - 8) + end;
+    }
 }

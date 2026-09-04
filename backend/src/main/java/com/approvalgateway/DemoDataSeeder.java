@@ -20,5 +20,10 @@ public class DemoDataSeeder implements CommandLineRunner {
                 "mario.rossi@clienteesempio.it",
                 "Buongiorno, volevo sapere quando arriva il mio ordine #4521, sono passati 10 giorni."
         );
+        approvalService.simulatePaymentConfirmationAutomation(
+                "IT60X0542811101000000123456",
+                420.00,
+                "Pagamento fornitore — fattura 8832"
+        );
     }
 }

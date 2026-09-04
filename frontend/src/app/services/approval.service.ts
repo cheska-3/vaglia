@@ -35,4 +35,12 @@ export class ApprovalService {
       customerMessage
     });
   }
+
+  simulatePaymentConfirmation(payeeIban: string, amount: number, reason: string): Observable<ApprovalRequest> {
+    return this.http.post<ApprovalRequest>(`${this.baseUrl}/automations/payment-confirmation/simulate`, {
+      payeeIban,
+      amount,
+      reason
+    });
+  }
 }

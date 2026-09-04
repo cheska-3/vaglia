@@ -21,16 +21,33 @@ public class ApprovalService {
 
     /** Simulates an inbound automation event: an AI draft is generated and held for approval. */
     public ApprovalRequest simulateEmailDraftAutomation(String customerEmail, String customerMessage) {
+        checkRateLimit();
+        String draft = aiDraftingService.draftEmailReply(customerMessage);
+        return saveNewRequest("EMAIL_DRAFT", "Bozza risposta cliente",
+                SensitiveDataMasker.maskEmail(customerEmail), draft);
+    }
+
+    /** Simulates a second, independent automation: a payment ready to be confirmed. */
+    public ApprovalRequest simulatePaymentConfirmationAutomation(String payeeIban, double amount, String reason) {
+        checkRateLimit();
+        String note = aiDraftingService.draftPaymentJustification(amount, reason);
+        return saveNewRequest("PAYMENT_CONFIRMATION", "Conferma pagamento",
+                SensitiveDataMasker.maskIban(payeeIban), note);
+    }
+
+    private void checkRateLimit() {
         if (!rateLimiter.tryAcquire()) {
             throw new RateLimitExceededException("Troppe richieste di generazione AI, riprova tra poco.");
         }
-        String draft = aiDraftingService.draftEmailReply(customerMessage);
+    }
 
+    private ApprovalRequest saveNewRequest(String automationType, String title, String sensitiveDataPreview,
+                                            String proposedAction) {
         ApprovalRequest request = ApprovalRequest.builder()
-                .automationType("EMAIL_DRAFT")
-                .title("Bozza risposta cliente")
-                .sensitiveDataPreview(SensitiveDataMasker.maskEmail(customerEmail))
-                .proposedAction(draft)
+                .automationType(automationType)
+                .title(title)
+                .sensitiveDataPreview(sensitiveDataPreview)
+                .proposedAction(proposedAction)
                 .status(ApprovalStatus.PENDING)
                 .createdAt(Instant.now())
                 .build();

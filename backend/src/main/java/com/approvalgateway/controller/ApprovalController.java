@@ -2,6 +2,7 @@ package com.approvalgateway.controller;
 
 import com.approvalgateway.controller.dto.DecisionRequest;
 import com.approvalgateway.controller.dto.SimulateEmailRequest;
+import com.approvalgateway.controller.dto.SimulatePaymentRequest;
 import com.approvalgateway.model.ApprovalRequest;
 import com.approvalgateway.service.ApprovalService;
 import jakarta.validation.Valid;
@@ -20,6 +21,12 @@ public class ApprovalController {
     @PostMapping("/automations/email-draft/simulate")
     public ApprovalRequest simulateEmailDraft(@Valid @RequestBody SimulateEmailRequest request) {
         return approvalService.simulateEmailDraftAutomation(request.customerEmail(), request.customerMessage());
+    }
+
+    @PostMapping("/automations/payment-confirmation/simulate")
+    public ApprovalRequest simulatePaymentConfirmation(@Valid @RequestBody SimulatePaymentRequest request) {
+        return approvalService.simulatePaymentConfirmationAutomation(
+                request.payeeIban(), request.amount(), request.reason());
     }
 
     @GetMapping("/approvals")

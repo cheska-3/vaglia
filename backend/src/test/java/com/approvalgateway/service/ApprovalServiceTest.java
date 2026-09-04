@@ -106,4 +106,19 @@ class ApprovalServiceTest {
         assertThatThrownBy(() -> approvalService.simulateEmailDraftAutomation("a@b.it", "msg"))
                 .isInstanceOf(RateLimitExceededException.class);
     }
+
+    @Test
+    void simulatePaymentConfirmationAutomation_masksIbanAndSavesPendingRequest() {
+        when(rateLimiter.tryAcquire()).thenReturn(true);
+        when(aiDraftingService.draftPaymentJustification(150.0, "fattura 8832")).thenReturn("nota generata");
+        when(repository.save(any(ApprovalRequest.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        ApprovalRequest result = approvalService.simulatePaymentConfirmationAutomation(
+                "IT60X0542811101000000123456", 150.0, "fattura 8832");
+
+        assertThat(result.getAutomationType()).isEqualTo("PAYMENT_CONFIRMATION");
+        assertThat(result.getStatus()).isEqualTo(ApprovalStatus.PENDING);
+        assertThat(result.getProposedAction()).isEqualTo("nota generata");
+        assertThat(result.getSensitiveDataPreview()).doesNotContain("0542811101000000");
+    }
 }

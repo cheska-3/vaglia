@@ -27,4 +27,17 @@ class SensitiveDataMaskerTest {
         assertThat(SensitiveDataMasker.maskEmail("not-an-email")).isEqualTo("***");
         assertThat(SensitiveDataMasker.maskEmail(null)).isEqualTo("***");
     }
+
+    @Test
+    void masksIbanKeepingFirstAndLastFourCharacters() {
+        String masked = SensitiveDataMasker.maskIban("IT60X0542811101000000123456");
+
+        assertThat(masked).startsWith("IT60").endsWith("3456");
+        assertThat(masked).doesNotContain("0542811101000000");
+    }
+
+    @Test
+    void masksShortIbanEntirely() {
+        assertThat(SensitiveDataMasker.maskIban("IT60X05")).isEqualTo("*******");
+    }
 }

@@ -45,6 +45,18 @@
   padding: 28px 0 0;
 }
 
+.demo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 720px) {
+  .demo-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .demo-panel {
   background: var(--surface);
   border: 1px solid var(--border-strong);

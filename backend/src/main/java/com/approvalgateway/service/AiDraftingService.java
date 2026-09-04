@@ -27,7 +27,7 @@ public class AiDraftingService {
     private String model;
 
     public String draftEmailReply(String customerMessage) {
-        if (apiKey == null || apiKey.isBlank()) {
+        if (!hasApiKey()) {
             return "[MOCK — set GEMINI_API_KEY to generate a real draft]\n\n"
                     + "Gentile cliente,\n\ngrazie per averci scritto. Abbiamo ricevuto il suo messaggio:\n\""
                     + customerMessage + "\"\n\nLe risponderemo al più presto.\n\nCordiali saluti";
@@ -42,6 +42,36 @@ public class AiDraftingService {
                 %s
                 """.formatted(customerMessage);
 
+        return generate(prompt, "[AI draft unavailable — empty response from Gemini API]");
+    }
+
+    public String draftPaymentJustification(double amount, String reason) {
+        if (!hasApiKey()) {
+            return "[MOCK — set GEMINI_API_KEY to generate a real draft]\n\n"
+                    + "Pagamento di € " + amount + " da confermare.\nMotivo indicato: " + reason
+                    + "\n\nNessuna anomalia rilevata automaticamente, ma si consiglia una verifica manuale"
+                    + " prima della conferma, trattandosi di un'operazione su un conto beneficiario.";
+        }
+
+        String prompt = """
+                Sei un assistente che prepara pagamenti aziendali per la revisione umana.
+                Scrivi una breve nota (massimo 4-5 frasi) in italiano che riassuma il pagamento
+                e segnali eventuali punti da verificare, per aiutare chi deve approvarlo. Non
+                approvare né rifiutare tu stesso, limitati a riassumere e segnalare cosa controllare.
+                Rispondi solo con il testo della nota.
+
+                Importo: € %.2f
+                Motivo dichiarato: %s
+                """.formatted(amount, reason);
+
+        return generate(prompt, "[AI note unavailable — empty response from Gemini API]");
+    }
+
+    private boolean hasApiKey() {
+        return apiKey != null && !apiKey.isBlank();
+    }
+
+    private String generate(String prompt, String emptyResponseMessage) {
         Map<String, Object> requestBody = Map.of(
                 "contents", List.of(Map.of("parts", List.of(Map.of("text", prompt))))
         );
@@ -54,7 +84,7 @@ public class AiDraftingService {
                 .body(GeminiResponse.class);
 
         if (response == null || response.candidates() == null || response.candidates().isEmpty()) {
-            return "[AI draft unavailable — empty response from Gemini API]";
+            return emptyResponseMessage;
         }
         return response.candidates().get(0).content().parts().get(0).text();
     }
