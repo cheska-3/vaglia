@@ -8,7 +8,10 @@
       </div>
     </div>
     <label class="toggle">
-      <input type="checkbox" [checked]="showAll" (change)="toggleShowAll()" />
+      <span class="switch">
+        <input type="checkbox" [checked]="showAll" (change)="toggleShowAll()" />
+        <span class="slider"></span>
+      </span>
       Mostra anche approvate/rifiutate
     </label>
   </div>
@@ -48,7 +51,7 @@
           <span class="rc-masked">{{ r.sensitiveDataPreview }}</span>
         </div>
         <div class="rc-side">
-          <span class="badge" [class]="r.status.toLowerCase()">{{ r.status }}</span>
+          <span class="badge" [class]="r.status.toLowerCase()">{{ r.status | titlecase }}</span>
           <span class="rc-date">{{ r.createdAt | date: 'short' }}</span>
         </div>
       </a>

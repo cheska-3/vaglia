@@ -4,7 +4,7 @@
     <h1 class="detail-title">{{ r.title }}</h1>
     <p class="detail-meta">
       <span class="rc-type-badge">{{ r.automationType }}</span>
-      <span class="badge" [class]="r.status.toLowerCase()">{{ r.status }}</span>
+      <span class="badge" [class]="r.status.toLowerCase()">{{ r.status | titlecase }}</span>
     </p>
   </div>
 </section>

@@ -4,7 +4,13 @@
     <a class="brand" routerLink="/">
       <span class="brand-text">Vaglia</span>
     </a>
-    <span class="navbar-tagline">AI Approval Gateway</span>
+    <div class="navbar-right">
+      <label class="switch">
+        <input type="checkbox" [checked]="theme.isDark()" (change)="theme.toggle()" />
+        <span class="slider"></span>
+      </label>
+      <span class="navbar-tagline">AI Approval Gateway</span>
+    </div>
   </div>
 </nav>
 

@@ -1,7 +1,7 @@
 /* ── NAVBAR ───────────────────────────────────────────────── */
 .navbar {
-  background: #101114;
-  border-bottom: 1px solid rgba(148,163,184,0.14);
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -23,16 +23,21 @@
 }
 
 .brand-text {
-  font-family: 'Space Grotesk', sans-serif;
   font-size: 1.35rem;
   font-weight: 800;
-  color: #e5e7eb;
-  letter-spacing: -0.03em;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .navbar-tagline {
   font-size: 0.75rem;
-  color: rgba(229,231,235,0.35);
+  color: var(--text-faint);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   font-weight: 500;
@@ -41,13 +46,13 @@
 /* ── MAIN ─────────────────────────────────────────────────── */
 main {
   min-height: calc(100vh - 64px - 140px);
-  background: #0b0c0e;
+  background: var(--bg);
 }
 
 /* ── FOOTER ───────────────────────────────────────────────── */
 .site-footer {
-  background: #101114;
-  border-top: 1px solid rgba(148,163,184,0.12);
+  background: var(--bg-elevated);
+  border-top: 1px solid var(--border);
   padding: 40px 0 28px;
 }
 
@@ -71,22 +76,21 @@ main {
 }
 
 .footer-name {
-  font-family: 'Space Grotesk', sans-serif;
   font-size: 1.2rem;
   font-weight: 800;
-  color: #e5e7eb;
+  color: var(--text);
   letter-spacing: -0.02em;
 }
 
 .footer-tagline {
   font-size: 0.85rem;
-  color: rgba(229,231,235,0.4);
+  color: var(--text-muted);
   margin: 0;
 }
 
 .footer-divider {
   height: 1px;
-  background: rgba(148,163,184,0.1);
+  background: var(--border);
 }
 
 .footer-bottom {
@@ -99,12 +103,12 @@ main {
 
 .footer-copy {
   font-size: 0.78rem;
-  color: rgba(229,231,235,0.3);
+  color: var(--text-faint);
 }
 
 .footer-tech {
   font-size: 0.72rem;
-  color: rgba(34,211,238,0.6);
+  color: var(--accent);
   letter-spacing: 0.06em;
   font-weight: 600;
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { ThemeService } from './services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -10,4 +11,6 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   currentYear = new Date().getFullYear();
+
+  constructor(public theme: ThemeService) {}
 }

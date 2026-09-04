@@ -1,7 +1,7 @@
 /* ── HERO ─────────────────────────────────────────────────── */
 .detail-hero {
-  background: linear-gradient(180deg, #121317 0%, #0b0c0e 100%);
-  border-bottom: 1px solid rgba(148,163,184,0.14);
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border);
   padding: 32px 0 28px;
 }
 
@@ -10,8 +10,8 @@
   align-items: center;
   gap: 8px;
   background: transparent;
-  border: 1px solid rgba(148,163,184,0.25);
-  color: rgba(229,231,235,0.7);
+  border: 1px solid var(--border-strong);
+  color: var(--text-muted);
   padding: 7px 16px;
   border-radius: 8px;
   font-size: 0.8rem;
@@ -23,16 +23,15 @@
 }
 
 .back-btn:hover {
-  border-color: #22d3ee;
-  color: #22d3ee;
-  background: rgba(34,211,238,0.06);
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
 }
 
 .detail-title {
-  font-family: 'Space Grotesk', sans-serif;
   font-size: clamp(1.6rem, 4vw, 2.2rem);
   font-weight: 800;
-  color: #e5e7eb;
+  color: var(--text);
   margin: 0 0 12px;
   letter-spacing: -0.02em;
 }
@@ -49,35 +48,35 @@
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #22d3ee;
+  color: var(--accent);
 }
 
 .badge {
   padding: 3px 10px;
   border-radius: 999px;
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
 }
 
 .badge.pending {
-  background: rgba(245,158,11,0.15);
-  color: #fbbf24;
+  background: var(--badge-pending-bg);
+  color: var(--badge-pending-text);
 }
 
 .badge.approved {
-  background: rgba(34,197,94,0.15);
-  color: #4ade80;
+  background: var(--badge-approved-bg);
+  color: var(--badge-approved-text);
 }
 
 .badge.rejected {
-  background: rgba(220,38,38,0.15);
-  color: #fca5a5;
+  background: var(--badge-rejected-bg);
+  color: var(--badge-rejected-text);
 }
 
 /* ── CONTENT ──────────────────────────────────────────────── */
 .detail-section {
-  background: #0b0c0e;
+  background: var(--bg);
   padding: 32px 0 96px;
 }
 
@@ -86,18 +85,17 @@
 }
 
 .block h2 {
-  font-family: 'Space Grotesk', sans-serif;
   font-size: 0.95rem;
   font-weight: 700;
-  color: rgba(229,231,235,0.85);
+  color: var(--text);
   margin: 0 0 12px;
 }
 
 .masked {
   font-family: monospace;
-  background: #16181d;
-  border: 1px solid rgba(148,163,184,0.14);
-  color: rgba(229,231,235,0.8);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
   padding: 10px 14px;
   border-radius: 8px;
   display: inline-block;
@@ -105,22 +103,22 @@
 
 .proposed-action {
   white-space: pre-wrap;
-  background: #16181d;
-  border: 1px solid rgba(148,163,184,0.14);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 20px;
   font-family: inherit;
   font-size: 0.9rem;
-  color: rgba(229,231,235,0.85);
+  color: var(--text);
   line-height: 1.7;
 }
 
 textarea {
   width: 100%;
   min-height: 70px;
-  background: #16181d;
-  border: 1px solid rgba(148,163,184,0.2);
-  color: #e5e7eb;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
   padding: 12px 14px;
   border-radius: 8px;
   font-family: inherit;
@@ -131,11 +129,11 @@ textarea {
 
 textarea:focus {
   outline: none;
-  border-color: #22d3ee;
+  border-color: var(--accent);
 }
 
 textarea::placeholder {
-  color: rgba(229,231,235,0.3);
+  color: var(--text-faint);
 }
 
 .actions {
@@ -154,19 +152,18 @@ textarea::placeholder {
 }
 
 .btn-approve {
-  background: #22c55e;
-  color: #06210f;
-  box-shadow: 0 4px 14px rgba(34,197,94,0.3);
+  background: var(--badge-approved-text);
+  color: #ffffff;
 }
 
 .btn-reject {
   background: transparent;
-  border: 1px solid rgba(220,38,38,0.4) !important;
-  color: #fca5a5;
+  border: 1px solid var(--badge-rejected-text) !important;
+  color: var(--badge-rejected-text);
 }
 
 .btn-reject:hover {
-  background: rgba(220,38,38,0.08);
+  background: var(--badge-rejected-bg);
 }
 
 button:disabled {
@@ -175,7 +172,7 @@ button:disabled {
 }
 
 .outcome-line {
-  color: rgba(229,231,235,0.65);
+  color: var(--text-muted);
   font-size: 0.9rem;
   margin: 0 0 6px;
 }
