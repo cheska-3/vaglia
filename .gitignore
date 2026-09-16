@@ -16,3 +16,7 @@ frontend/.angular/
 # Secrets
 .env
 
+
+# Local design reference images (mockup + a stock icon), not project assets
+vagliadesign.jpg
+modern-light-dark-mode-toggle.webp

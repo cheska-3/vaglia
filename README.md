@@ -92,9 +92,8 @@ Tre livelli di test, apposta per coprire tutta la piramide:
 ## Roadmap (non ancora implementato)
 
 - [ ] Autenticazione multi-utente (JWT)
-- [ ] Seconda automazione demo (es. conferma pagamento)
-- [ ] Storico/audit trail filtrabile
-- [ ] Rate limiting sull'endpoint di generazione AI
+- [ ] Storico/audit trail con filtri più ricchi
+- [ ] Collegare `ApprovalService.approve()` a un servizio email/pagamenti reale
 - [ ] CI con GitHub Actions
 - [ ] Notifica opzionale via Telegram con link diretto alla richiesta
 
