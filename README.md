@@ -96,7 +96,3 @@ Tre livelli di test, apposta per coprire tutta la piramide:
 - [ ] Collegare `ApprovalService.approve()` a un servizio email/pagamenti reale
 - [ ] CI con GitHub Actions
 - [ ] Notifica opzionale via Telegram con link diretto alla richiesta
-
-## Perché questo progetto
-
-Sviluppato per mettere in pratica in un unico stack (Java, Spring Boot, Angular, MySQL) l'esperienza maturata in un tirocinio su automazioni digitali e AI. Il codice è stato scritto con l'assistenza di Claude Code, a partire da scelte architetturali definite consapevolmente: mascheramento dati, fallback mock, separazione tra proposta e esecuzione dell'azione.
