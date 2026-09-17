@@ -16,7 +16,11 @@ frontend/.angular/
 # Secrets
 .env
 
+# Local notes, not part of the app
+NOTES.md
+REFERENCE.md
+GUIDE.md
 
-# Local design reference images (mockup + a stock icon), not project assets
+# Local design reference images, not project assets
 vagliadesign.jpg
 modern-light-dark-mode-toggle.webp
